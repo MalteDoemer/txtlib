@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.config": "makefile",
+        "*.h": "c",
+        "*.asm": "nasm",
+        "*.Z80": "asm-collection",
+        "*.mxx": "cpp",
+        "*.mpp": "cpp",
+        "iostream": "cpp",
+        "*.tcc": "cpp",
+        "istream": "cpp"
+    }
+}
