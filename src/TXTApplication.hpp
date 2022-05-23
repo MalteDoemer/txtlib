@@ -4,7 +4,6 @@
 #include <stddef.h>
 #include <stdexcept>
 
-#include "FtShmem.h"
 #include "KeLibTxtDl.h"
 
 using TransferArea = FISH_X1_TRANSFER;
