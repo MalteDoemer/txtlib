@@ -9,11 +9,20 @@ FILE* DebugFile;
 
 class App : public TXTApplication {
 public:
-    App() { printf("hey\n"); }
+    App() {}
+
+protected:
+    void init() override { printf("hey\n"); }
+
+    bool loop() override 
+    {
+        return false;
+    }
 };
 
 int main()
 {
     App app;
+    app.run();
     return 0;
 }

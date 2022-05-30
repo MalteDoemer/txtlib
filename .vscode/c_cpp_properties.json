@@ -27,7 +27,7 @@
             "compilerPath": "C:/Programs/gcc-linaro-7.2.1-2017.11-i686-mingw32_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "windows-gcc-arm"
+            "intelliSenseMode": "linux-gcc-arm"
         }
     ],
     "version": 4
