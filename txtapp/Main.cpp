@@ -1,5 +1,7 @@
 
-#include <iostream>
+// #include <iostream>
+
+#include <stdio.h>
 
 #include "TXTApplication.hpp"
 
@@ -9,7 +11,7 @@ FILE* DebugFile;
 
 class App : public TXTApplication {
 public:
-    App() { std::cout << "Starting ...\n"; }
+    App() { printf("hey"); }
 };
 
 int main()

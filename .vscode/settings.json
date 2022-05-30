@@ -9,5 +9,6 @@
         "iostream": "cpp",
         "*.tcc": "cpp",
         "istream": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
