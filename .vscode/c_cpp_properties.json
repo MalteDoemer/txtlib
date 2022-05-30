@@ -17,7 +17,8 @@
         {
             "name": "Windows",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "C:/Programs/gcc-linaro-7.2.1-2017.11-i686-mingw32_arm-linux-gnueabihf/arm-linux-gnueabihf/include/c++/7.2.1"
             ],
             "defines": [],
             "forcedInclude": [
@@ -26,8 +27,7 @@
             "compilerPath": "C:/Programs/gcc-linaro-7.2.1-2017.11-i686-mingw32_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "windows-gcc-arm",
-            "configurationProvider": "go2sh.cmake-integration"
+            "intelliSenseMode": "windows-gcc-arm"
         }
     ],
     "version": 4

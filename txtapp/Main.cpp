@@ -1,7 +1,5 @@
 
-// #include <iostream>
-
-#include <stdio.h>
+#include <cstdio>
 
 #include "TXTApplication.hpp"
 
@@ -11,7 +9,7 @@ FILE* DebugFile;
 
 class App : public TXTApplication {
 public:
-    App() { printf("hey"); }
+    App() { printf("hey\n"); }
 };
 
 int main()
