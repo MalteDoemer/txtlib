@@ -1,39 +1,48 @@
 #pragma once
 
-#include "Types.hpp"
-#include "TXTException.hpp"
+#include <chrono>
+#include <thread>
 
-class TXTApplication {
+#include "Common.hpp"
+#include "TxtException.hpp"
+#include "TxtController.hpp"
+
+class TxtApplication {
 
 public:
-    TXTApplication()
+    TxtApplication()
     {
         auto ret = StartTxtDownloadProg();
-
         if (ret != KELIB_ERROR_NONE) {
-            throw TXTException(ret);
+            throw TxtException(ret);
         }
 
-        ta = GetKeLibTransferAreaMainAddress();
+        auto ta = GetKeLibTransferAreaMainAddress();
 
-        if (!ta) {
-            throw TXTException("unable to get a pointer to the transfer area");
-        }
+        if (!ta)
+            throw TxtException("unable to get transfer area");
+
+        txt = TxtController(ta);
     }
 
     void run()
     {
         init();
-        while(loop());
+        while (loop())
+            ;
+    }
+
+    ~TxtApplication() { StopTxtDownloadProg(); }
+
+protected:
+    virtual void init() {}
+
+    virtual bool loop()
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        return true;
     }
 
 protected:
-    virtual void init() = 0;
-
-    virtual bool loop() = 0;
-
-    ~TXTApplication() { StopTxtDownloadProg(); }
-
-protected:
-    TransferArea* ta { nullptr };
+    TxtController txt;
 };

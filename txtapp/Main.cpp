@@ -7,17 +7,12 @@
 unsigned int DebugFlags;
 FILE* DebugFile;
 
-class App : public TXTApplication {
-public:
-    App() {}
+class App : public TxtApplication {
 
 protected:
-    void init() override { printf("hey\n"); }
+    void init() override {}
 
-    bool loop() override 
-    {
-        return false;
-    }
+    bool loop() override { return false; }
 };
 
 int main()
