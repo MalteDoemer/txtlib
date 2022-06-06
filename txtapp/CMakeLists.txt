@@ -20,6 +20,7 @@ target_link_directories(${PROJECT_NAME} PRIVATE
 # add txtlib and all external libraries that are required
 target_link_libraries(${PROJECT_NAME} PRIVATE
     txtlib
+    socketpp
 
     ROBOProLib
     KeLibTxt

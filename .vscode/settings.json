@@ -1,7 +1,7 @@
 {
     "files.associations": {
         "*.config": "makefile",
-        "*.h": "c",
+        "*.h": "cpp",
         "*.asm": "nasm",
         "*.Z80": "asm-collection",
         "*.mxx": "cpp",

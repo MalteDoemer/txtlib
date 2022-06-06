@@ -7,9 +7,11 @@ project("txtlib"
 )
 
 
+add_subdirectory(deps/SocketPP/socketpp)
 
 add_subdirectory(txtlib)
 add_subdirectory(txtapp)
+
 
 
 set(RESULT_BINARY ${txtapp_BINARY_DIR}/txtapp)
