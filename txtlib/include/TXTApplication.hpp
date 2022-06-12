@@ -25,23 +25,10 @@ public:
         txt = TxtController(ta);
     }
 
-    void run()
-    {
-        init();
-        while (loop())
-            ;
-    }
-
     ~TxtApplication() { StopTxtDownloadProg(); }
 
-protected:
-    virtual void init() {}
 
-    virtual bool loop()
-    {
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-        return true;
-    }
+
 
 protected:
     TxtController txt;

@@ -17,6 +17,10 @@ target_link_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/deps/Txt_Libs_deps/
 )
 
+target_link_options(${PROJECT_NAME} PRIVATE
+    -pthread
+)
+
 # add txtlib and all external libraries that are required
 target_link_libraries(${PROJECT_NAME} PRIVATE
     txtlib

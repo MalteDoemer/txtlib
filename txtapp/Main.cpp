@@ -1,22 +1,27 @@
 
-#include <cstdio>
-
-#include "TXTApplication.hpp"
-
 #include "SocketPP.h"
+#include "TXTApplication.hpp"
 
 // Common debugging stuff for RoboProLib
 unsigned int DebugFlags;
 FILE* DebugFile;
 
+using namespace SocketPP;
+
+constexpr int PORT = 5000;
+
 class App : public TxtApplication {
 
-protected:
-    void init() override 
+private:
+    TCPServer server;
+
+public:
+    App() : server(PORT)
     {
+        server.setRecvHandle([&](const Message& message) { server.send(message); });
     }
 
-    bool loop() override { return false; }
+    void run() { server.loop(); }
 };
 
 int main()
