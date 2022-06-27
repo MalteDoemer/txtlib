@@ -42,4 +42,5 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     bz2
     asound
     SDLWidgetsLib
+    dl
 )
