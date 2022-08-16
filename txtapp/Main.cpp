@@ -11,22 +11,22 @@ FILE* DebugFile;
 class App : public TxtApplication {
 
 public:
-    App() : m1(txt, MotorId::M1)
-    {        
-    }
+    App() : m1(txt, MotorId::M1), m2(txt, MotorId::M2) {}
 
-    void run() 
+    void run()
     {
         m1.start(Direction::Left, 512);
-        
-        sleep(2);
+        m2.start(Direction::Right, 512);
+
+        sleep(4);
 
         m1.stop();
-
+        m2.stop();
     }
 
 private:
     Motor m1;
+    Motor m2;
 };
 
 int main()
