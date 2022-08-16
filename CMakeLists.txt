@@ -20,5 +20,5 @@ if(NOT DEFINED TXT_IP)
 set(TXT_IP "192.168.7.2")
 endif()
 
-add_custom_target(upload COMMAND scp ${RESULT_BINARY} ROBOPro@${TXT_IP}:/opt/knobloch/C-Program/)
-add_custom_target(run COMMAND ssh ROBOPro@${TXT_IP} /opt/knobloch/C-Program/txtapp)
+add_custom_target(upload COMMAND scp ${RESULT_BINARY} ROBOPro@${TXT_IP}:/opt/knobloch/C-Program/ USES_TERMINAL)
+add_custom_target(run COMMAND ssh ROBOPro@${TXT_IP} /opt/knobloch/C-Program/txtapp USES_TERMINAL)
