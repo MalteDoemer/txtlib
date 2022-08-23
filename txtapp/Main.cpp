@@ -3,6 +3,9 @@
 
 #include "TxtApplication.hpp"
 #include "Motor.hpp"
+#include "TCPServer.h"
+
+using namespace SocketPP;
 
 // Common debugging stuff for RoboProLib
 unsigned int DebugFlags;
@@ -15,13 +18,28 @@ public:
 
     void run()
     {
-        m1.start(Direction::Left, 512);
-        m2.start(Direction::Right, 512);
+        const int port = 6969;
+        TCPServer server(port);
 
-        sleep(4);
+        printf("hi\n");
 
-        m1.stop();
-        m2.stop();
+        // server.setRecvHandle([&](const Message& message) {
+        //     printf("hello\n");
+
+        // //     m1.start(Direction::Left, 512);
+        // //     m2.start(Direction::Right, 512);
+
+        // //     sleep(4);
+
+        // //     m1.stop();
+        // //     m2.stop();
+        // });
+
+        // server.loop();
+
+        // while (1) {
+        //     sleep(1);
+        // }
     }
 
 private:
