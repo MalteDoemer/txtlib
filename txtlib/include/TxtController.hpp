@@ -54,9 +54,16 @@ public:
         update_config();
     }
 
-    void setup_motor(MotorId motor, bool is_motor) 
+    void setup_motor(MotorId motor) 
     {
-        ta->ftX1config.motor[motor] = is_motor;
+        ta->ftX1config.motor[motor] = true;
+        update_config();
+    }
+
+    void setup_output(OutputId output) 
+    {
+        int id = output / 2;
+        ta->ftX1config.motor[id] = false;
         update_config();
     }
 

@@ -15,13 +15,16 @@ public:
 
     Motor(TxtController controller, MotorId id) : id(id), controller(controller) 
     {
-        controller.setup_motor(id, true);
+        controller.setup_motor(id);
     }
 
-    void start(Direction direction, u32 duty) 
+    bool start(Direction direction, u32 duty) 
     {
+        if (controller.transfer_area().ftX1config.motor[id] != 1)
+            return false;
+
         if (duty > 512)
-            return;
+            return false;
 
         if (direction == Left) {
             controller.transfer_area().ftX1out.duty[id * 2] = duty;
@@ -30,6 +33,8 @@ public:
             controller.transfer_area().ftX1out.duty[id * 2] = 0;
             controller.transfer_area().ftX1out.duty[id * 2 + 1] = duty;
         }
+
+        return true;
     }
 
     void stop() {
