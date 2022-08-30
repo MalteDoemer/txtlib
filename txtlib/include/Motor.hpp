@@ -3,11 +3,6 @@
 
 #include "TxtController.hpp"
 
-enum Direction : i8 {
-    Left = -1,
-    Right = 1, 
-};
-
 class Motor {
 
 public:
@@ -26,7 +21,7 @@ public:
         if (duty > 512)
             return false;
 
-        if (direction == Left) {
+        if (direction == Forward) {
             controller.transfer_area().ftX1out.duty[id * 2] = duty;
             controller.transfer_area().ftX1out.duty[id * 2 + 1] = 0;
         } else {

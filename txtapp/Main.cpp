@@ -33,20 +33,20 @@ private:
     void handle_msg(const std::string msg)
     {
         if (msg.substr(0, 7) == "forward") {
-            assert(m1.start(Direction::Left, 512));
-            assert(m2.start(Direction::Left, 512));
+            assert(m1.start(Direction::Forward, 512));
+            assert(m2.start(Direction::Forward, 512));
 
         } else if (msg.substr(0, 4) == "left") {
-            assert(m1.start(Direction::Right, 512));
-            assert(m2.start(Direction::Left, 512));
+            assert(m1.start(Direction::Backward, 512));
+            assert(m2.start(Direction::Forward, 512));
 
         } else if (msg.substr(0, 5) == "right") {
-            assert(m1.start(Direction::Left, 512));
-            assert(m2.start(Direction::Right, 512));
+            assert(m1.start(Direction::Forward, 512));
+            assert(m2.start(Direction::Backward, 512));
 
         } else if (msg.substr(0, 4) == "back") {
-            assert(m1.start(Direction::Right, 512));
-            assert(m2.start(Direction::Right, 512));
+            assert(m1.start(Direction::Backward, 512));
+            assert(m2.start(Direction::Backward, 512));
 
         } else {
             LOGI("invalid command: %s", msg.c_str());

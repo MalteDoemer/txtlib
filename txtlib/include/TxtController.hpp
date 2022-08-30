@@ -39,6 +39,11 @@ enum InputId: u8 {
     I8,
 };
 
+enum Direction : i8 {
+    Forward = -1,
+    Backward = 1, 
+};
+
 class TxtController {
 
 public:
@@ -57,6 +62,16 @@ public:
     void setup_motor(MotorId motor) 
     {
         ta->ftX1config.motor[motor] = true;
+        ta->ftX1out.distance[motor] = 0;
+        ta->ftX1out.master[motor] = 0;
+        update_config();
+    }
+
+    void setup_enhanced_motor(MotorId motor) 
+    {
+        ta->ftX1config.motor[motor] = true;
+        ta->ftX1out.distance[motor] = 1;
+        ta->ftX1out.master[motor] = 0;
         update_config();
     }
 
