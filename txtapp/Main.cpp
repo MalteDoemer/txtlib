@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <unistd.h>
+#include <cstring>
 
 #include "TxtApplication.hpp"
 #include "Motor.hpp"
@@ -33,9 +34,13 @@ public:
         TCPServer server(port);
 
         server.setRecvHandle([&](const Message& message) {
+
+            MotorCommand cmd;
+
             auto* data = message.rawMsg.data();
-            auto* cmd = (MotorCommand*)data;
-            run_motor_command(*cmd);
+            std::memcpy(&cmd, data, sizeof(MotorCommand));
+            
+            run_motor_command(cmd);
         });
 
         server.loop();
