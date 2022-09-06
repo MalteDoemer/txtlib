@@ -13,10 +13,18 @@ using namespace SocketPP;
 unsigned int DebugFlags;
 FILE* DebugFile;
 
+struct MotorCommand {
+    Direction left_dir;
+    Direction right_dir;
+    u16 reserved;
+    u32 left_dist;
+    u32 right_dist;
+};
+
 class App : public TxtApplication {
 
 public:
-    App() : l1(txt, OutputId::O5), m1(txt, MotorId::M1), m2(txt, MotorId::M2) {}
+    App() : l1(txt, OutputId::O5), m1(txt, MotorId::M1), m2(txt, MotorId::M2) { m1.link(m2); }
 
     void run()
     {
@@ -24,38 +32,22 @@ public:
 
         TCPServer server(port);
 
-        server.setRecvHandle([&](const Message& message) { handle_msg(message.rawMsg.toString()); });
+        server.setRecvHandle([&](const Message& message) {
+            auto* data = message.rawMsg.data();
+            auto* cmd = (MotorCommand*)data;
+            run_motor_command(*cmd);
+        });
 
         server.loop();
     }
 
-private:
-    void handle_msg(const std::string msg)
+    void run_motor_command(MotorCommand cmd)
     {
-        if (msg.substr(0, 7) == "forward") {
-            assert(m1.start(Direction::Forward, 512));
-            assert(m2.start(Direction::Forward, 512));
+        m1.set(cmd.left_dir, 512);
+        m2.set(cmd.right_dir, 512);
 
-        } else if (msg.substr(0, 4) == "left") {
-            assert(m1.start(Direction::Backward, 512));
-            assert(m2.start(Direction::Forward, 512));
-
-        } else if (msg.substr(0, 5) == "right") {
-            assert(m1.start(Direction::Forward, 512));
-            assert(m2.start(Direction::Backward, 512));
-
-        } else if (msg.substr(0, 4) == "back") {
-            assert(m1.start(Direction::Backward, 512));
-            assert(m2.start(Direction::Backward, 512));
-
-        } else {
-            LOGI("invalid command: %s", msg.c_str());
-            return;
-        }
-
-        sleep(1);
-        m1.stop();
-        m2.stop();
+        m1.start(cmd.left_dist);
+        m2.start(cmd.right_dist);
     }
 
 private:
