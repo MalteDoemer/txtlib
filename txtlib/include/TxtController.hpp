@@ -67,14 +67,6 @@ public:
         update_config();
     }
 
-    void setup_enhanced_motor(MotorId motor) 
-    {
-        ta->ftX1config.motor[motor] = true;
-        ta->ftX1out.distance[motor] = 1;
-        ta->ftX1out.master[motor] = 0;
-        update_config();
-    }
-
     void setup_output(OutputId output) 
     {
         int id = output / 2;
