@@ -49,6 +49,10 @@ Build the project
 
 ```dotnet build```
 
-### References
+## References
 
 Documentation of the Fischertechnik TXT controller and the libraries: https://github.com/fischertechnik/txt_demo_c_download
+
+## License
+
+Licensed under the MIT license ([LICENSE](LICENSE) or http://opensource.org/licenses/MIT)
