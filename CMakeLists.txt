@@ -6,15 +6,10 @@ project("txtlib"
         LANGUAGES CXX
 )
 
-
-add_subdirectory(deps/SocketPP/socketpp)
-
 add_subdirectory(txtlib)
-add_subdirectory(txtapp)
+add_subdirectory(example)
 
-
-
-set(RESULT_BINARY ${txtapp_BINARY_DIR}/txtapp)
+set(RESULT_BINARY ${example_BINARY_DIR}/txtapp)
 
 if(NOT DEFINED TXT_IP)
 set(TXT_IP "192.168.7.2")

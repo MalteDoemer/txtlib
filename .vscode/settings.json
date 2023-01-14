@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.arb": "json",
         "*.config": "makefile",
         "*.h": "cpp",
         "*.asm": "nasm",
@@ -62,7 +63,8 @@
         "stdexcept": "cpp",
         "thread": "cpp",
         "codecvt": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "compare": "cpp"
     },
     "cmake.cpptools.compilerPath": "C:\\Programs\\gcc-linaro-7.2.1-2017.11-i686-mingw32_arm-linux-gnueabihf\\bin\\arm-linux-gnueabihf-gcc"
 }

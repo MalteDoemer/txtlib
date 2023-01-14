@@ -1,8 +1,0 @@
-build/
-
-# clion
-.idea/
-cmake-build-*/
-
-# qt creator
-CMakeLists.txt.user

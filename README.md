@@ -7,7 +7,6 @@ This is a library and an example application that interacts with the Fischertech
 - [cmake](https://cmake.org/download/)
 - [ninja](https://github.com/ninja-build/ninja/releases)
 - arm-linux-gnueabihf-gcc ([windows](https://releases.linaro.org/components/toolchain/binaries/7.2-2017.11/arm-linux-gnueabihf/gcc-linaro-7.2.1-2017.11-i686-mingw32_arm-linux-gnueabihf.tar.xz)) ([linux](https://releases.linaro.org/components/toolchain/binaries/7.2-2017.11/arm-linux-gnueabihf/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf.tar.xz))
-- [.Net 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
 ## Building the TXT App
 
@@ -38,16 +37,6 @@ If you are using WLAN or Bluetooth not USB to connect to the TXT you will need t
 ```cmake -D TXT_IP=192.168.8.2 -D CMAKE_TOOLCHAIN_FILE=toolchain.cmake -G Ninja  -S . -B build```
 
 The IP's are specified in [this](https://github.com/fischertechnik/txt_demo_c_download/blob/master/HowToUseTxtWeb.md) document.
-
-## Building the C# App
-
-Change to the C# project directory:
-
-```cd nwctrl```
-
-Build the project
-
-```dotnet build```
 
 ## References
 

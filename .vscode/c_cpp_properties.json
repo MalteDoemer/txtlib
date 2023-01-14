@@ -9,7 +9,7 @@
             "forcedInclude": [
                 "${workspaceFolder}/.vscode/pre.h"
             ],
-            "compilerPath": "/home/malte/opt/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc",
+            "compilerPath": "/opt/arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "linux-gcc-arm"
