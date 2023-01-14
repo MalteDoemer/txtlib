@@ -7,29 +7,30 @@
 #include "TxtException.hpp"
 #include "TxtController.hpp"
 
-class TxtApplication {
+namespace txt {
+
+class application {
 
 public:
-    TxtApplication()
+    application()
     {
         auto ret = StartTxtDownloadProg();
         if (ret != KELIB_ERROR_NONE) {
-            throw TxtException(ret);
+            throw txt::exception(ret);
         }
 
         auto ta = GetKeLibTransferAreaMainAddress();
 
         if (!ta)
-            throw TxtException("unable to get transfer area");
+            throw txt::exception("unable to get transfer_area");
 
-        txt = TxtController(ta);
+        txt = txt::controller(ta);
     }
 
-    ~TxtApplication() { StopTxtDownloadProg(); }
-
-
-
+    ~application() { StopTxtDownloadProg(); }
 
 protected:
-    TxtController txt;
+    txt::controller txt;
 };
+
+}

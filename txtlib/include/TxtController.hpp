@@ -3,21 +3,23 @@
 #include "Common.hpp"
 #include "TxtException.hpp"
 
-enum CounterId {
+namespace txt {
+
+enum counter_id : u8 {
     C1 = 0,
     C2 = 1,
     C3 = 2,
     C4 = 3,
 };
 
-enum MotorId {
+enum motor_id : u8 {
     M1 = 0,
     M2,
     M3,
     M4,
 };
 
-enum OutputId: u8 {
+enum output_id : u8 {
     O1 = 0,
     O2,
     O3,
@@ -28,7 +30,7 @@ enum OutputId: u8 {
     O8,
 };
 
-enum InputId: u8 {
+enum input_id : u8 {
     I1 = 0,
     I2,
     I3,
@@ -39,52 +41,35 @@ enum InputId: u8 {
     I8,
 };
 
-enum Direction : i8 {
+enum direction : i8 {
     Forward = -1,
-    Backward = 1, 
+    Backward = 1,
 };
 
-class TxtController {
+enum input_mode : u8 {
+    U = 0,
+    R,
+    R2,
+    Ultrasonic,
+    Invalid,
+};
+
+class controller {
 
 public:
-    TxtController() = default;
+    controller() = default;
 
-    explicit TxtController(TransferArea* ta) : ta(ta) {}
+    explicit controller(txt::transfer_area* ta) : ta(ta) {}
 
-    void setup_input(InputId input, InputMode mode, bool digital) 
-    {
-        ta->ftX1config.uni[input].mode = mode;
-        ta->ftX1config.uni[input].digital = digital;
-        ta->ftX1in.uni[input] = 0;
-        update_config();
-    }
+    txt::transfer_area& transfer_area() { return *ta; }
 
-    void setup_motor(MotorId motor) 
-    {
-        ta->ftX1config.motor[motor] = true;
-        ta->ftX1out.distance[motor] = 0;
-        ta->ftX1out.master[motor] = 0;
-        update_config();
-    }
-
-    void setup_output(OutputId output) 
-    {
-        int id = output / 2;
-        ta->ftX1config.motor[id] = false;
-        update_config();
-    }
-
-    TransferArea& transfer_area() { return *ta; }
-
-    const TransferArea& transfer_area() const { return *ta; }
+    const txt::transfer_area& transfer_area() const { return *ta; }
 
 private:
-    void update_config() 
-    {
-        ta->ftX1state.config_id++;
-    }
-
+    void update_config() { ta->ftX1state.config_id++; }
 
 private:
-    TransferArea* ta { nullptr };
+    txt::transfer_area* ta { nullptr };
 };
+
+}

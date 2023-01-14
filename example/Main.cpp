@@ -3,20 +3,16 @@
 #include <cstring>
 
 #include "TxtApplication.hpp"
-#include "Motor.hpp"
-#include "Lamp.hpp"
 
 // Common debugging stuff for RoboProLib
 unsigned int DebugFlags;
 FILE* DebugFile;
 
 
-class App : public TxtApplication {
+class App : public txt::application {
 
 public:
     App() {}
-
-
 };
 
 int main()

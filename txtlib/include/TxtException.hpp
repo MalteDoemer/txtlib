@@ -1,20 +1,143 @@
 #pragma once
 
+#include <string>
 #include <stdexcept>
 #include <unordered_map>
 
 #include "KeLibTxtDl.h"
 
-class TxtException : std::exception {
+namespace txt {
+
+static std::unordered_map<u32, std::string> error_messages = {
+    { 0x00000000, "NO_ERROR" },
+    { 0x00000001, "ERROR_UNDEFINED" },
+    { 0x00000100, "ERROR_LIB_NOT_INIT" },
+    { 0x00001001, "ERROR_WRONG_PARAMETER_1_VALUE" },
+    { 0x00001002, "ERROR_WRONG_PARAMETER_2_VALUE" },
+    { 0x00001003, "ERROR_WRONG_PARAMETER_3_VALUE" },
+    { 0x00001004, "ERROR_WRONG_PARAMETER_4_VALUE" },
+    { 0x00001005, "ERROR_WRONG_PARAMETER_5_VALUE" },
+    { 0x00001010, "ERROR_WRONG_MODE" },
+    { 0x00001020, "ERROR_SOFTWARE_1" },
+    { 0x00001050, "ERROR_ZERO_POINTER_VALUE" },
+    { 0x00001101, "ERROR_MENUE_LOAD_FONT_001" },
+    { 0x00001102, "ERROR_MENUE_LOAD_FONT_002" },
+    { 0x00001103, "ERROR_MENUE_LOAD_FONT_003" },
+    { 0x00001104, "ERROR_MENUE_LOAD_FONT_004" },
+    { 0x00001105, "ERROR_MENUE_LOAD_FONT_005" },
+    { 0x00001201, "ERROR_FILE_NOT_FOUND" },
+    { 0x00001202, "ERROR_FILE_EMPTY" },
+    { 0x00001203, "ERROR_FILE_AT_CLOSE" },
+    { 0x00001204, "ERROR_FILE_NOT_OPEN" },
+    { 0x00001205, "ERROR_FILE_POS" },
+    { 0x00001206, "ERROR_FILE_NOT_SUPPORTED_TYPE" },
+    { 0x00001207, "ERROR_FILE_WRONG_TYPE_001" },
+    { 0x00001208, "ERROR_FILE_READ_DIRECTORY_001" },
+    { 0x00001209, "ERROR_FILE_INDEX_TO_HIGH_001" },
+    { 0x0000120A, "ERROR_FILE_EXTENSION_WRONG" },
+    { 0x0000120B, "ERROR_FILE_WRITE_WRONG_SIZE" },
+    { 0x0000120C, "ERROR_FILE_NOT_DELETED" },
+    { 0x0000120D, "ERROR_FILE_WRONG_DATA_FORMAT" },
+    { 0x0000120E, "ERROR_FILE_STATUS_READ" },
+    { 0x0000120F, "ERROR_FILE_ID_NOT_NULL" },
+    { 0x00001210, "ERROR_READ_WRONG_SIZE" },
+    { 0x00001301, "ERROR_SETUPFILE_NOT_READ" },
+    { 0x00001401, "ERROR_SOUND_IS_PLAYING" },
+    { 0x00001402, "ERROR_SOUND_UNKNOWN_ACTION" },
+    { 0x00001403, "ERROR_SOUND_WRONG_DATA_POINTER" },
+    { 0x00001404, "ERROR_SOUND_FILE_TO_BIG" },
+    { 0x00001405, "ERROR_SOUND_FILE_TO_SMALL" },
+    { 0x00001406, "ERROR_SOUND_THREAD_NOT_STOPPABLE" },
+    { 0x00001407, "ERROR_SOUND_FILE_1" },
+    { 0x00001408, "ERROR_SOUND_FILE_2" },
+    { 0x00001409, "ERROR_SOUND_FILE_3" },
+    { 0x00001501, "ERROR_SPI_OPEN_DEVICE" },
+    { 0x00001502, "ERROR_SPI_SET_MODE" },
+    { 0x00001503, "ERROR_SPI_SET_BITS_1" },
+    { 0x00001504, "ERROR_SPI_SET_BITS_2" },
+    { 0x00001505, "ERROR_SPI_SETUP_SPEED" },
+    { 0x00001506, "ERROR_SPI_AT_CLOSE" },
+    { 0x00001601, "ERROR_NO_FREE_MEMORY" },
+    { 0x00001701, "ERROR_I2C_OPEN_ERROR" },
+    { 0x00001702, "ERROR_I2C_ADDR_ERROR" },
+    { 0x00001703, "ERROR_I2C_READ_ERROR" },
+    { 0x00001704, "ERROR_I2C_WRITE_ERROR" },
+    { 0x00001705, "ERROR_I2C_WRITE_READ_ERROR" },
+    { 0x00001706, "ERROR_I2C_SET_REG_ADR_ERROR" },
+    { 0x00001707, "ERROR_I2C_WRONG_REG_SIZE_VAL" },
+    { 0x00001708, "ERROR_I2C_WRONG_DATA_WIDTH" },
+    { 0x00001709, "ERROR_I2C_SET_STOP_ERROR" },
+    { 0x0000170A, "ERROR_I2C_SET_SPEED_ERROR" },
+    { 0x0000170B, "ERROR_I2C_WRONG_ERROR_MASK" },
+    { 0x0000170C, "ERROR_I2C_SET_ADR_SIZE_10" },
+    { 0x0000170D, "ERROR_I2C_SET_ADR_SIZE_7" },
+    { 0x0000170E, "ERROR_I2C_NO_WRITE_NO_READ" },
+    { 0x0000170F, "ERROR_I2C_COMMUNICATION" },
+    { 0x00001800, "ERROR_IPADR_WRONG_1" },
+    { 0x00001801, "ERROR_IPADR_WRONG_2" },
+    { 0x00001802, "ERROR_GET_IP_1" },
+    { 0x00001803, "ERROR_GET_IP_2" },
+    { 0x00001804, "ERROR_NET_DEV_IS_NOT_LINKED" },
+    { 0x00001805, "ERROR_DEV_BUSY_NO_SCAN" },
+    { 0x00001901, "ERROR_COM_OPEN_DEVICE" },
+    { 0x00001902, "ERROR_COM_CLOSE_DEVICE" },
+    { 0x00001903, "ERROR_SET_SERIAL_PORT" },
+    { 0x00001920, "ERROR_WRITE_TO_SUB_CONTRL" },
+    { 0x00001921, "ERROR_READ_FROM_SUB_CONTRL_1" },
+    { 0x00001922, "ERROR_READ_FROM_SUB_CONTRL_2" },
+    { 0x00001923, "ERROR_READ_FROM_SUB_CONTRL_3" },
+    { 0x00001A01, "ERROR_NO_NET_FOUND" },
+    { 0x00001A02, "ERROR_NET_SOCKET_NO_INIT" },
+    { 0x00001A03, "ERROR_NET_CREATE_SOCKET_1" },
+    { 0x00001A04, "ERROR_NET_CREATE_SOCKET_2" },
+    { 0x00001A05, "ERROR_NET_SET_SOCKET_OPT" },
+    { 0x00001A06, "ERROR_NET_BIND_SOCKET" },
+    { 0x00001A07, "ERROR_NET_BC_SEND_1" },
+    { 0x00001B01, "ERROR_MSG_NOT_INITIALISED" },
+    { 0x00001B02, "ERROR_MSG_THREAD_IS_RUNNING" },
+    { 0x00001B03, "ERROR_MSG_THREAD_NO_RUN" },
+    { 0x00001B04, "ERROR_MSG_NO_START" },
+    { 0x00001B05, "ERROR_MSG_UNKNOWN_HW_ID" },
+    { 0x00001B06, "ERROR_MSG_UNKNOWN_OPTION" },
+    { 0x00001B07, "ERROR_MSG_BUFFER_FULL" },
+    { 0x00001B08, "ERROR_MSG_BUFFER_FULL_TIMEOUT" },
+    { 0x00001B09, "ERROR_MSG_IS_BUSY_NO_START" },
+    { 0x00001B0A, "ERROR_MSG_BUFFER_EMPTY" },
+    { 0x00001C01, "IS_DLC_PROG" },
+    { 0x00001C02, "IS_RPP_PROG" },
+    { 0x00001C03, "ERROR_DLC_TXT_BUSY" },
+    { 0x00001C04, "THREAD_NOT_STARTABLE" },
+    { 0x00002802, "ERROR_WRONG_CYLE_COUNT" },
+    { 0x00002803, "ERROR_WRONG_TRANSFER_CODE" },
+    { 0x00002804, "ERROR_WRONG_SIZE_OF_RX_BYTES" },
+    { 0x00002805, "ERROR_SEND_TRANSFER_DATA" },
+    { 0x00002806, "ERROR_RECEIVE_TRANSFER_DATA" },
+    { 0x00003001, "ERROR_WRONG_SETUP_UNI_INPUTS" },
+};
+
+class exception : std::exception {
 
 public:
-    explicit TxtException(u32 error_code) : error_code(error_code) { msg = "txt error: " + std::to_string(error_code); }
+    explicit exception(u32 err_code) : err_code(err_code)
+    {
+        if (error_messages.find(err_code) != error_messages.end()) {
+            msg = "txt::exception: " + error_messages[err_code];
+        } else {
+            msg = "txt::exception: unknown error: " + std::to_string(err_code);
+        }
+    }
 
-    explicit TxtException(std::string msg) : msg(msg) {}
+    explicit exception(std::string msg) { this->msg = "txt::exception: " + msg; }
 
     const char* what() const noexcept override { return msg.c_str(); }
 
+    const std::string& message() const { return msg; }
+    
+    u32 error_code() const { return err_code; }
+
 private:
     std::string msg;
-    u32 error_code { KELIB_ERROR_UNDEFINED };
+    u32 err_code { KELIB_ERROR_UNDEFINED };
 };
+
+}

@@ -5,7 +5,9 @@
 
 #include "KeLibTxtDl.h"
 
-using TransferArea = FISH_X1_TRANSFER;
+namespace txt {
+
+using transfer_area = FISH_X1_TRANSFER;
 
 using u8 = uint8_t;
 using u16 = uint16_t;
@@ -20,3 +22,4 @@ using i64 = int64_t;
 using isize = intptr_t;
 using usize = uintptr_t;
 
+}
