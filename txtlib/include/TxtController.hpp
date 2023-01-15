@@ -123,6 +123,11 @@ public:
 
         transfer_area().ftX1config.motor[motor] = is_motor;
 
+        if (is_motor) {
+            transfer_area().ftX1out.distance[motor] = 0;
+            transfer_area().ftX1out.master[motor] = 0;
+        }
+
         update_config();
     }
 
@@ -161,6 +166,102 @@ public:
         default:
             throw txt::exception("invalid state");
         }
+    }
+
+    /*
+    void start_single_motor_command(txt::motor_id motor, int distance, int duty, txt::direction direction)
+    {
+        if (motor < M1 || motor > M4)
+            throw txt::exception(KELIB_ERROR_WRONG_PARAMETER_1_VALUE);
+
+        if (duty < 0 || duty > 512)
+            throw txt::exception(KELIB_ERROR_WRONG_PARAMETER_3_VALUE);
+
+        // check if output is configured as motor
+        if (transfer_area().ftX1config.motor[motor] != 1)
+            throw txt::exception(KELIB_ERROR_WRONG_MODE);
+
+        // set the distance
+        transfer_area().ftX1out.distance[motor] = distance;
+
+        // zero means no master
+        transfer_area().ftX1out.master[motor] = 0;
+
+        // set the duty values
+        set_motor(motor, duty, direction);
+
+        // start the motor command
+        transfer_area().ftX1in.motor_ex_reached[motor] = 0;
+        transfer_area().ftX1out.motor_ex_cmd_id[motor]++;
+    } */
+
+    /**
+     *  Starts a enhanced motor command. 
+     *  Either distance or master have to be set.
+     */
+    void start_motor_command(txt::motor_id motor)
+    {
+        if (motor < M1 || motor > M4)
+            throw txt::exception(KELIB_ERROR_WRONG_PARAMETER_1_VALUE);
+
+        if (!is_enhanced_motor(motor))
+            throw txt::exception(KELIB_ERROR_WRONG_MODE);
+
+        transfer_area().ftX1in.motor_ex_reached[motor] = 0;
+        transfer_area().ftX1out.motor_ex_cmd_id[motor]++;
+    }
+
+    /**
+     * Checks if the motor command has finished.
+     */
+    bool is_motor_command_finished(txt::motor_id motor)
+    {
+        if (motor < M1 || motor > M4)
+            throw txt::exception(KELIB_ERROR_WRONG_PARAMETER_1_VALUE);
+
+        return transfer_area().ftX1in.motor_ex_reached[motor] == 1;
+    }
+
+    /**
+     * Checks if the motor is using the enhanced motor control.
+     */
+    bool is_enhanced_motor(txt::motor_id motor)
+    {
+        if (motor < M1 || motor > M4)
+            throw txt::exception(KELIB_ERROR_WRONG_PARAMETER_1_VALUE);
+
+        return transfer_area().ftX1out.distance[motor] != 0 || transfer_area().ftX1out.master[motor] != 0;
+    }
+
+    /**
+     * Sets the distance for the enhanced motor control.
+     *
+     * If the distance is greater than zero, enhanced motor control is enabled.
+     * If it is zero and no master is set, enhanced motor control is disabled.
+     */
+    void set_motor_distance(txt::motor_id motor, int distance)
+    {
+        if (motor < M1 || motor > M4)
+            throw txt::exception(KELIB_ERROR_WRONG_PARAMETER_1_VALUE);
+
+        transfer_area().ftX1out.distance[motor] = distance;
+    }
+
+    /**
+     * Set the "master" of a motor in order to synchronize two motors.
+     * @param master_idx 0 means no master; 1, 2, 3, 4 correspond to M1, M2, M3, M4
+     *
+     * @note If master and/or distance is non-zero the motor will be in enhanced mode.
+     */
+    void set_motor_master(txt::motor_id motor, u8 master_idx)
+    {
+        if (motor < M1 || motor > M4)
+            throw txt::exception(KELIB_ERROR_WRONG_PARAMETER_1_VALUE);
+
+        if (master_idx < 0 || master_idx > M4 + 1)
+            throw txt::exception(KELIB_ERROR_WRONG_PARAMETER_2_VALUE);
+
+        transfer_area().ftX1out.master[motor] = master_idx;
     }
 
     /**
@@ -227,7 +328,7 @@ public:
         transfer_area().ftX1in.cnt_resetted[counter] = 0;
     }
 
-    bool is_counter_resetted(txt::counter_id counter) 
+    bool is_counter_resetted(txt::counter_id counter)
     {
         if (counter < C1 || counter > C4)
             throw txt::exception(KELIB_ERROR_WRONG_PARAMETER_1_VALUE);

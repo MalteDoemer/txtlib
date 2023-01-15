@@ -17,56 +17,59 @@ FILE* DebugFile;
 class App : public txt::application {
 
 public:
-    App() : button(txt, txt::I1), motor(txt, txt::motor_id::M1), lamp(txt, txt::output_id::O7) {}
+    App() : button(txt, txt::I1), m1(txt, txt::M1), m2(txt, txt::M2)
+    {
+        // txt.configure_motor_output(txt::M1, true);
+        // txt.configure_motor_output(txt::M2, true);
+    }
+
+    void setup() override
+    {
+        // txt.set_motor_distance(txt::M1, 250);
+        // txt.set_motor_distance(txt::M2, 250);
+        // txt.set_motor_master(txt::M1, 0);
+        // txt.set_motor_master(txt::M2, 1);
+
+        // txt.set_motor(txt::M1, 512, txt::direction::forward);
+        // txt.set_motor(txt::M2, 512, txt::direction::forward);
+
+        // txt.start_motor_command(txt::M1);
+        // txt.start_motor_command(txt::M2);
+
+        // printf("started command...\n");
+
+        // while (!txt.is_motor_command_finished(txt::M1) && !txt.is_motor_command_finished(txt::M2)) {
+        //     printf("not finished\n");
+        //     usleep(500000);
+        // }
+
+        // printf("finished\n");
+    }
 
     void update() override
     {
         usleep(100000);
 
         button.update();
-        // counter.update();
-        // ultrasonic.update();
-
-        // if (counter.has_changed()) {
-        //     printf("%d\n", counter.count());
-
-        //     if (counter.count() >= 11) {
-        //         counter.reset();
-        //     }
-        // }
-
-        // if (button.has_changed()) {
-        //     auto val = button.state();
-        //     printf("%s\n", val ? "on" : "off");
-        // }
 
         if (button.has_released()) {
-            printf("toggle lamp\n");
+            m1.enhanced_mode(250, 0);
+            m2.enhanced_mode(250, 1);
+            m1.start(256, txt::direction::forward);
+            m2.start(256, txt::direction::forward);
+            printf("started command...\n");
 
-            is_lamp_on = !is_lamp_on;
-            if (is_lamp_on) {
-                printf("off\n");
-                lamp.off();
-            }
-            else {
-                lamp.on(512);
-                printf("on\n");
+            while (!m1.has_stopped() && !m2.has_stopped()) {
+                printf("not finished\n");
+                usleep(500000);
             }
         }
-
-        // if (ultrasonic.has_changed()) {
-        //     printf("%d cm\n", ultrasonic.distance());
-        // }
     }
 
 private:
     txt::button button;
-    txt::motor motor;
-    txt::pwm_output lamp;
-
-    bool is_lamp_on = true;
-
-    // txt::ultrasonic ultrasonic;
+    txt::motor m1;
+    txt::motor m2;
 };
 
 int main()
