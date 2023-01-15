@@ -20,12 +20,21 @@ public:
      * - ULTRASONIC_OVR ???
      * - NO_ULTRASONIC means no ultrasonic sensor is present.
      */
-    i16 get_distance() { return txt.get_input(input); }
+    i16 distance() { return txt.get_input(input); }
 
+    void update()
+    {
+        auto val = distance();
+        changed = val != last_value;
+        last_value = val;
+    }
 
-
+    bool has_changed() { return changed; }
 
 private:
+    i16 last_value = -1;
+    bool changed = false;
+
     txt::input_id input;
     txt::controller txt;
 };

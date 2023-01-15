@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include <unistd.h>
-#include <cstring>
 
-#include <thread>
 #include <iostream>
 
 #include "Ultrasonic.hpp"
@@ -21,16 +19,14 @@ public:
     {
         usleep(100000);
 
-        auto dist = ultrasonic.get_distance();
+        ultrasonic.update();
 
-        if (dist != last_dist) {
-            printf("%d cm\n", dist);
-            last_dist = dist;
+        if (ultrasonic.has_changed()) {
+            printf("%d cm\n", ultrasonic.distance());
         }
     }
 
 private:
-    i16 last_dist = -1;
     txt::ultrasonic ultrasonic;
 };
 
