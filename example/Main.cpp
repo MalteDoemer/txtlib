@@ -5,6 +5,7 @@
 #include <thread>
 #include <iostream>
 
+#include "Ultrasonic.hpp"
 #include "TxtApplication.hpp"
 
 // Common debugging stuff for RoboProLib
@@ -14,19 +15,13 @@ FILE* DebugFile;
 class App : public txt::application {
 
 public:
-    App() {}
-
-    void setup() override
-    {
-        txt.configure_input(txt::I1, txt::input_mode::ultrasonic, txt::digital::no);
-        printf("configuring...\n");
-    }
+    App() : ultrasonic(txt, txt::I1) {}
 
     void update() override
     {
         usleep(100000);
 
-        auto dist = txt.get_input(txt::I1);
+        auto dist = ultrasonic.get_distance();
 
         if (dist != last_dist) {
             printf("%d cm\n", dist);
@@ -36,6 +31,7 @@ public:
 
 private:
     i16 last_dist = -1;
+    txt::ultrasonic ultrasonic;
 };
 
 int main()
