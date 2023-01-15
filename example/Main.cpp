@@ -2,6 +2,9 @@
 #include <unistd.h>
 #include <cstring>
 
+#include <thread>
+#include <iostream>
+
 #include "TxtApplication.hpp"
 
 // Common debugging stuff for RoboProLib
@@ -13,27 +16,26 @@ class App : public txt::application {
 public:
     App() {}
 
-    void run()
+    void setup() override
     {
+        txt.configure_input(txt::I1, txt::input_mode::ultrasonic, txt::digital::no);
+        printf("configuring...\n");
+    }
 
-        printf("resetting counter...\n");
-        txt.reset_counter(txt::C1);
-        while (!txt.is_counter_resetted(txt::C1)) {}
+    void update() override
+    {
+        usleep(100000);
 
-        while (true) {
-            usleep(10000);
+        auto dist = txt.get_input(txt::I1);
 
-            auto val = txt.get_counter_value(txt::C1);
-
-            if (val != last_counter_value) {
-                printf("%d\n", val);
-                last_counter_value = val;
-            }
+        if (dist != last_dist) {
+            printf("%d cm\n", dist);
+            last_dist = dist;
         }
     }
 
 private:
-    i16 last_counter_value = -1;
+    i16 last_dist = -1;
 };
 
 int main()
@@ -41,6 +43,7 @@ int main()
     printf("starting app...\n");
 
     App app;
-    app.run();
+    app.start();
+
     return 0;
 }

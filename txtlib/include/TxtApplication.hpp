@@ -1,8 +1,5 @@
 #pragma once
 
-#include <chrono>
-#include <thread>
-
 #include "Common.hpp"
 #include "TxtException.hpp"
 #include "TxtController.hpp"
@@ -27,10 +24,26 @@ public:
         txt = txt::controller(ta);
     }
 
-    ~application() { StopTxtDownloadProg(); }
+    void start()
+    {
+        setup();
+        running = true;
+
+        while (running) {
+            update();
+        }
+    }
+
+    void stop() { running = false; }
+
+    virtual void setup() {}
+
+    virtual void update() {}
 
 protected:
     txt::controller txt;
+
+    bool running { false };
 };
 
 }
