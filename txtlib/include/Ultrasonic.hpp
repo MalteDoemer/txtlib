@@ -10,6 +10,7 @@ public:
     ultrasonic(txt::controller txt, txt::input_id input) : txt(txt), input(input)
     {
         txt.configure_input(input, txt::input_mode::ultrasonic, txt::digital::no);
+        last_value = distance();
     }
 
     /**
@@ -32,7 +33,7 @@ public:
     bool has_changed() { return changed; }
 
 private:
-    i16 last_value = -1;
+    i16 last_value;
     bool changed = false;
 
     txt::input_id input;
