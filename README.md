@@ -2,6 +2,13 @@
 
 This is a library and an example application that interacts with the Fischertechnik ROBOTICS TXT controller.
 
+## Project structure
+
+- The [deps](/deps) folder contains various dependencies
+- The [txtlib](/txtlib/) folder contains a header-only library with helper classes to work with the TXT controller.
+- The [txtnet](/txtnet/) folder contains a header-only library with network abstractions.
+- The [txtexplorer](/txtexplorer/) folder contains an application that uses txtlib for controlling my custom-built ROBOTICS TXT Explorer.
+
 ## Tools you need
 
 - [cmake](https://cmake.org/download/)
