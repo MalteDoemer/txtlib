@@ -7,6 +7,8 @@
 #include <jsonrpccxx/iclientconnector.hpp>
 #include <jsonrpccxx/server.hpp>
 
+#include "../JsonOptionalAddon.hpp"
+
 namespace txt::net {
 
 /**

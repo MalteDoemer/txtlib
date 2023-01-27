@@ -1,7 +1,4 @@
-
 #include <iostream>
-
-// #include <JsonRPCServer.hpp>
 
 #include "Explorer.hpp"
 
@@ -14,8 +11,8 @@ int main()
 {
     std::cout << "starting app...\n";
 
-    explorer::app app;
-    app.start();
+    txt::explorer explorer;
+    explorer.start();
 
     return 0;
 }
