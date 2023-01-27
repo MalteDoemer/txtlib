@@ -6,7 +6,13 @@ project("txtlib"
         LANGUAGES CXX
 )
 
+add_subdirectory(deps/cpp-httplib)
+add_subdirectory(deps/json)
+add_subdirectory(deps/json-rpc-cxx)
+
 add_subdirectory(txtlib)
+add_subdirectory(txtnet)
+
 add_subdirectory(example)
 
 set(RESULT_BINARY ${txtapp_BINARY_DIR}/txtapp)
