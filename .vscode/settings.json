@@ -64,7 +64,20 @@
         "thread": "cpp",
         "codecvt": "cpp",
         "set": "cpp",
-        "compare": "cpp"
+        "compare": "cpp",
+        "any": "cpp",
+        "bitset": "cpp",
+        "csignal": "cpp",
+        "forward_list": "cpp",
+        "unordered_set": "cpp",
+        "filesystem": "cpp",
+        "numeric": "cpp",
+        "random": "cpp",
+        "regex": "cpp",
+        "iomanip": "cpp",
+        "valarray": "cpp",
+        "variant": "cpp"
     },
-    "cmake.cpptools.compilerPath": "C:\\Programs\\gcc-linaro-7.2.1-2017.11-i686-mingw32_arm-linux-gnueabihf\\bin\\arm-linux-gnueabihf-gcc"
+    "cmake.cpptools.compilerPath": "C:\\Programs\\gcc-linaro-7.2.1-2017.11-i686-mingw32_arm-linux-gnueabihf\\bin\\arm-linux-gnueabihf-gcc",
+    "C_Cpp.errorSquiggles": "disabled"
 }
