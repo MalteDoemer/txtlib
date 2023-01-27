@@ -26,10 +26,13 @@ public:
         lamp2(txt, txt::O8),
         server(8484, "/explorer")
     {
-        server.add("set_lights", txt::net::get_handle(&app::set_lights, *this), { "on" });
+        server.add_method("set_lights", txt::net::get_handle(&app::set_lights, *this), { "on" });
     }
 
-    void setup() override {
+    void setup() override
+    {
+        // start the server
+        // Note: this blocks the current thread preventing update from being called.
         server.start_listening();
     }
 

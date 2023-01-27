@@ -11,7 +11,7 @@ namespace txt::net {
 
 /**
  * This function is used to get a function pointer that can be used by the jsonrpc_server.
-*/
+ */
 template<typename... Args>
 auto get_handle(Args&&... args) -> decltype(jsonrpccxx::GetHandle(std::forward<Args>(args)...))
 {
@@ -29,8 +29,10 @@ public:
      *
      * @param port the port for the http server to listen on.
      * @param path the pattern/path for the POST request handler.
+     * @param host the interface to listen on or "0.0.0.0" to listen on any interface.
      */
-    explicit jsonrpc_server(int port, std::string path) : port(port), path(path), http_server(), rpc_server()
+    explicit jsonrpc_server(int port, std::string path, std::string host = "0.0.0.0") :
+        port(port), path(path), host(host), http_server(), rpc_server()
     {
         http_server.Post(
             path, [this](const httplib::Request& req, httplib::Response& res) { this->handle_post_action(req, res); });
@@ -42,7 +44,7 @@ public:
      * Add a jsonrpc method to the server.
      * This only works before the server started listening.
      */
-    bool add(const std::string& name, jsonrpccxx::MethodHandle callback,
+    bool add_method(const std::string& name, jsonrpccxx::MethodHandle callback,
         const jsonrpccxx::NamedParamMapping& mapping = jsonrpccxx::NAMED_PARAM_MAPPING)
     {
         if (http_server.is_running()) {
@@ -56,7 +58,7 @@ public:
      * Add a jsonrpc notification to the server.
      * This only works before the server started listening.
      */
-    bool add(const std::string& name, jsonrpccxx::NotificationHandle callback,
+    bool add_notification(const std::string& name, jsonrpccxx::NotificationHandle callback,
         const jsonrpccxx::NamedParamMapping& mapping = jsonrpccxx::NAMED_PARAM_MAPPING)
     {
         if (http_server.is_running()) {
@@ -67,11 +69,10 @@ public:
     }
 
     /**
-     * Starts the http server on localhost.
+     * Starts the http server.
      * @note This will block the current thread.
-     * @param host specifies the interface to listen on
      */
-    bool start_listening(std::string host = "0.0.0.0")
+    bool start_listening()
     {
         if (http_server.is_running()) {
             return false;
@@ -105,6 +106,7 @@ private:
 
     int port;
     std::string path;
+    std::string host;
 };
 
 }
