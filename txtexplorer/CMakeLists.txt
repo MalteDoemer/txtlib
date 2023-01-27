@@ -1,5 +1,5 @@
 # set the name
-project(txtapp)
+project(txtexplorer)
 
 # create a executable
 add_executable(${PROJECT_NAME})
@@ -14,4 +14,5 @@ target_sources(${PROJECT_NAME} PRIVATE
 # add txtlib and all external libraries that are required
 target_link_libraries(${PROJECT_NAME} PRIVATE
     txtlib
+    txtnet
 )
