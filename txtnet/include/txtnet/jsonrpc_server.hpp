@@ -6,14 +6,14 @@
 #include <httplib.h>
 #include <jsonrpc/server.hpp>
 
-#include "../JsonOptionalAddon.hpp"
+#include "json_optional_addon.hpp"
 
 namespace txt::net {
 
 using jsonrpc::get_handle;
 
 /**
- * This class combines a jsonrpccxx::JsonRpcServer and a httplib::Server together.
+ * This class combines a jsonrpc::server and a httplib::Server together.
  */
 class jsonrpc_server {
 

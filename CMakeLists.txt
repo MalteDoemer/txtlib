@@ -7,7 +7,6 @@ project("txtlib"
 )
 
 add_subdirectory(deps/cpp-httplib)
-add_subdirectory(deps/json)
 add_subdirectory(deps/json-rpc-lib)
 
 add_subdirectory(txtlib)

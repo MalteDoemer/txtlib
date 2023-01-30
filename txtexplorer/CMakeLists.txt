@@ -8,7 +8,7 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
 
 # add all the source files
 target_sources(${PROJECT_NAME} PRIVATE
-    ${PROJECT_SOURCE_DIR}/Main.cpp
+    ${PROJECT_SOURCE_DIR}/main.cpp
 )
 
 # add txtlib and all external libraries that are required

@@ -3,14 +3,14 @@
 #include <iostream>
 #include <optional>
 
-#include <Motor.hpp>
-#include <Button.hpp>
-#include <Counter.hpp>
-#include <PwmOutput.hpp>
-#include <Ultrasonic.hpp>
-#include <TxtApplication.hpp>
+#include <txtlib/motor.hpp>
+#include <txtlib/button.hpp>
+#include <txtlib/counter.hpp>
+#include <txtlib/pwm_output.hpp>
+#include <txtlib/ultrasonic.hpp>
+#include <txtlib/application.hpp>
 
-#include <JsonRPCServer.hpp>
+#include <txtnet/jsonrpc_server.hpp>
 
 namespace txt {
 

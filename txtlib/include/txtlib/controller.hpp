@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Common.hpp"
-#include "TxtException.hpp"
+#include "common.hpp"
+#include "exception.hpp"
 
 namespace txt {
 

@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Explorer.hpp"
+#include "explorer.hpp"
 
 // Necessary debugging stuff for RoboProLib
 unsigned int DebugFlags;

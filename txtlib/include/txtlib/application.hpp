@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Common.hpp"
-#include "TxtException.hpp"
-#include "TxtController.hpp"
+#include "common.hpp"
+#include "exception.hpp"
+#include "controller.hpp"
 
 namespace txt {
 

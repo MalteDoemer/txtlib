@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "TxtController.hpp"
+#include "controller.hpp"
 
 namespace txt {
 
