@@ -1,9 +1,6 @@
-[submodule "deps/json"]
-	path = deps/json
-	url = https://github.com/nlohmann/json.git
 [submodule "deps/cpp-httplib"]
 	path = deps/cpp-httplib
 	url = https://github.com/yhirose/cpp-httplib.git
-[submodule "deps/json-rpc-cxx"]
-	path = deps/json-rpc-cxx
-	url = https://github.com/jsonrpcx/json-rpc-cxx.git
+[submodule "deps/json-rpc-lib"]
+	path = deps/json-rpc-lib
+	url = https://github.com/MalteDoemer/json-rpc-lib

@@ -4,21 +4,22 @@
 #include <iostream>
 
 #include <httplib.h>
-#include <jsonrpccxx/iclientconnector.hpp>
-#include <jsonrpccxx/server.hpp>
+#include <jsonrpc/server.hpp>
 
 #include "../JsonOptionalAddon.hpp"
 
 namespace txt::net {
 
-/**
- * This function is used to get a function pointer that can be used by the jsonrpc_server.
- */
-template<typename... Args>
-auto get_handle(Args&&... args) -> decltype(jsonrpccxx::GetHandle(std::forward<Args>(args)...))
-{
-    return jsonrpccxx::GetHandle(std::forward<Args>(args)...);
-}
+using jsonrpc::get_handle;
+
+// /**
+//  * This function is used to get a function pointer that can be used by the jsonrpc_server.
+//  */
+// template<typename... Args>
+// auto get_handle(Args&&... args) -> decltype(jsonrpccxx::GetHandle(std::forward<Args>(args)...))
+// {
+//     return jsonrpccxx::GetHandle(std::forward<Args>(args)...);
+// }
 
 /**
  * This class combines a jsonrpccxx::JsonRpcServer and a httplib::Server together.
@@ -46,28 +47,14 @@ public:
      * Add a jsonrpc method to the server.
      * This only works before the server started listening.
      */
-    bool add_method(const std::string& name, jsonrpccxx::MethodHandle callback,
-        const jsonrpccxx::NamedParamMapping& mapping = jsonrpccxx::NAMED_PARAM_MAPPING)
+    bool add_method(const std::string& name, jsonrpc::method_handle callback,
+        jsonrpc::parameter_mapping mapping = jsonrpc::empty_parameter_mapping)
     {
         if (http_server.is_running()) {
             return false;
         }
 
-        return rpc_server.Add(name, callback, mapping);
-    }
-
-    /**
-     * Add a jsonrpc notification to the server.
-     * This only works before the server started listening.
-     */
-    bool add_notification(const std::string& name, jsonrpccxx::NotificationHandle callback,
-        const jsonrpccxx::NamedParamMapping& mapping = jsonrpccxx::NAMED_PARAM_MAPPING)
-    {
-        if (http_server.is_running()) {
-            return false;
-        }
-
-        return rpc_server.Add(name, callback, mapping);
+        return rpc_server.add_method(name, callback, mapping);
     }
 
     /**
@@ -97,13 +84,12 @@ private:
     void handle_post_action(const httplib::Request& req, httplib::Response& res)
     {
         res.status = 200;
-        auto result = rpc_server.HandleRequest(req.body);
+        auto result = rpc_server.handle_request(req.body);
         res.set_content(result, "application/json");
     }
 
 private:
-    jsonrpccxx::JsonRpc2Server rpc_server;
-
+    jsonrpc::server rpc_server;
     httplib::Server http_server;
 
     int port;
