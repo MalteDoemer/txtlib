@@ -196,7 +196,7 @@ public:
     } */
 
     /**
-     *  Starts a enhanced motor command. 
+     *  Starts a enhanced motor command.
      *  Either distance or master have to be set.
      */
     void start_motor_command(txt::motor_id motor)

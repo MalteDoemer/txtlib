@@ -28,13 +28,9 @@ public:
 
     bool has_changed() { return changed; }
 
-    bool has_pressed() {
-        return pressed;
-    }
+    bool has_pressed() { return pressed; }
 
-    bool has_released() {
-        return released;
-    }
+    bool has_released() { return released; }
 
 private:
     bool last_state;

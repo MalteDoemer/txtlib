@@ -12,15 +12,6 @@ namespace txt::net {
 
 using jsonrpc::get_handle;
 
-// /**
-//  * This function is used to get a function pointer that can be used by the jsonrpc_server.
-//  */
-// template<typename... Args>
-// auto get_handle(Args&&... args) -> decltype(jsonrpccxx::GetHandle(std::forward<Args>(args)...))
-// {
-//     return jsonrpccxx::GetHandle(std::forward<Args>(args)...);
-// }
-
 /**
  * This class combines a jsonrpccxx::JsonRpcServer and a httplib::Server together.
  */

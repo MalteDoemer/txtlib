@@ -132,7 +132,7 @@ public:
     const char* what() const noexcept override { return msg.c_str(); }
 
     const std::string& message() const { return msg; }
-    
+
     u32 error_code() const { return err_code; }
 
 private:

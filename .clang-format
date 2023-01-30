@@ -13,6 +13,8 @@ AlignTrailingComments: true
 
 BreakBeforeInheritanceComma: true
 
+AlwaysBreakTemplateDeclarations: true
+
 BreakConstructorInitializers: AfterColon
 AllowAllConstructorInitializersOnNextLine: true
 ConstructorInitializerAllOnOneLineOrOnePerLine: true

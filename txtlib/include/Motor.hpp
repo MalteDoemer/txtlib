@@ -41,10 +41,7 @@ public:
         normal_mode();
     }
 
-    bool has_stopped() 
-    {
-        return txt.is_motor_command_finished(id);
-    }
+    bool has_stopped() { return txt.is_motor_command_finished(id); }
 
 private:
     txt::motor_id id;
