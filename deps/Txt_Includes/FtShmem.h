@@ -494,7 +494,7 @@ typedef struct _input_sim
 
 
 // Hook table with pointers to the functions,
-// that can be called by RoboPro, 132 bytes
+// that can be called by RoboPro, 132 bytes -- WRONG !!!!
 typedef struct _hook_table
 {
     BOOL32  (*IsRunAllowed)             (void);
