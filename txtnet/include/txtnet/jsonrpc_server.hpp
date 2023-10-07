@@ -6,6 +6,7 @@
 #include <httplib.h>
 #include <jsonrpc/server.hpp>
 
+#include "json_txtlib_addon.hpp"
 #include "json_optional_addon.hpp"
 
 namespace txt::net {

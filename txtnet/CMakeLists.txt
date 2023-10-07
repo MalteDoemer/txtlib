@@ -16,6 +16,7 @@ target_link_options(${PROJECT_NAME} INTERFACE
 
 # add the txt libraries
 target_link_libraries(${PROJECT_NAME} INTERFACE
+    txtlib
     httplib
     json-rpc-lib
 )
